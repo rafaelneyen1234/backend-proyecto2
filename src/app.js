@@ -43,6 +43,9 @@ app.post('/enviarcorreo', (req, res) =>{
       }
     });
   });
+app.get("", (req,res) => {
+  res.send("hello OneLOop");
+})
 
 
 app.listen(port, () => {
