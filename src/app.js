@@ -1,25 +1,35 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors=require('cors');
 require('dotenv').config();
+
 const port=process.env.PORT;
+
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
+  secure:true,
   auth: {
-    user: 'jacoborosseau@gmail.com', // tu gmail
-    pass: 'Toscano199' // tu contra
+    user: 'oneloopuni@gmail.com', // tu gmail
+    pass: 'oneloopuni2023@' // tu contra
   }
 });
 
-  app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
   
-app.get('/enviarcorreo', (req, res) =>{
+
+
+app.post('/enviarcorreo', (req, res) =>{
     console.log("entrando");
-    let correo=req.query.correo;
-    let mensaje=req.query.mensaje;
+   console.log(req.body)
+    let correo=req.body.correo;
+    let mensaje=req.body.mensaje;
     let mailOptions = {
-      from: 'neil.toscano.f@uni.pe',
+      from: 'oneloopuni@gmail.com',
       to: correo,
       subject: 'Curso de Robotica Industrial',
       text: mensaje,
@@ -33,6 +43,7 @@ app.get('/enviarcorreo', (req, res) =>{
       }
     });
   });
+
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en :${port}`);
